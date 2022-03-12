@@ -1,7 +1,7 @@
 class Api::V1::ProductsController < ApplicationController
   skip_before_action :verify_authenticity_token
 
-  BLACK_FRIDAY = '2022/11/25'
+  BLACK_FRIDAY = '2022/03/12'
 
   def checkout
     products = []
@@ -18,10 +18,14 @@ class Api::V1::ProductsController < ApplicationController
         is_gift: product(id)['is_gift']
       }
     end
-    checkout = purchase_resume(products)
-    checkout[:products] = products
 
-    render json: checkout, status: :created
+    if validate_shopping_cart(products)
+      checkout = purchase_resume(products)
+      products << gift if is_black_friday?
+      checkout[:products] = products
+
+      render json: checkout, status: :ok
+    end
   end
 
   private
@@ -44,6 +48,18 @@ class Api::V1::ProductsController < ApplicationController
     }
   end
 
+  def validate_shopping_cart(products)
+    gifts = products.filter { |product| product[:is_gift] == true }
+
+    if gifts.count > 0
+      render json: {
+        message: "Products with id #{gifts.pluck(:id)} are not available for sale."
+      }, status: :bad_request
+      return
+    end
+    return true
+  end
+
   def discount(id)
     begin
       service = DiscountClientService.new
@@ -58,6 +74,18 @@ class Api::V1::ProductsController < ApplicationController
 
   def is_black_friday?
     Date.parse(BLACK_FRIDAY) == Date.today
+  end
+
+  def gift
+    product = Product.new.gifts.sample
+    {
+      id: product['id'],
+      quantity: 1,
+      unit_amount: 0,
+      total_amount: 0,
+      discount: 0,
+      is_gift: true
+    }
   end
 
   def new_product

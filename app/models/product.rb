@@ -8,4 +8,9 @@ class Product
       product["id"] == id
     end.last
   end
+
+  def gifts
+    all.filter { |product| product['is_gift'] == true }
+  end
 end
+
