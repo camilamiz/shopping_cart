@@ -51,6 +51,7 @@ end
 
 group :development, :test do
   gem 'rspec-rails', '~> 5.0.0'
+  gem 'json-schema', '~> 2.8', '>= 2.8.1'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
