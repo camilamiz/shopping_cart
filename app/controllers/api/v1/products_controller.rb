@@ -1,7 +1,7 @@
 class Api::V1::ProductsController < ApplicationController
   skip_before_action :verify_authenticity_token
 
-  # @client =
+  BLACK_FRIDAY = '2022/11/25'
 
   def checkout
     products = []
@@ -54,6 +54,10 @@ class Api::V1::ProductsController < ApplicationController
     end
 
     return 0
+  end
+
+  def is_black_friday?
+    Date.parse(BLACK_FRIDAY) == Date.today
   end
 
   def new_product
