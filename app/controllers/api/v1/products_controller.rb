@@ -8,13 +8,14 @@ class Api::V1::ProductsController < ApplicationController
 
     products_params.map do |param|
       id = param['id']
+      total_amount = product(id)['amount'] * param['quantity']
 
       products << {
         id: id,
         quantity: param['quantity'],
         unit_amount: product(id)['amount'],
-        total_amount: product(id)['amount'] * param['quantity'],
-        discount: discount(id),
+        total_amount: total_amount,
+        discount: total_amount * discount(id),
         is_gift: product(id)['is_gift']
       }
     end
@@ -37,8 +38,8 @@ class Api::V1::ProductsController < ApplicationController
 
     products.map do|item|
       total_amount += item[:total_amount]
-      total_amount_with_discount += item[:total_amount] * (1 - item[:discount])
-      total_discount += item[:total_amount] * item[:discount]
+      total_amount_with_discount += item[:total_amount] - item[:discount]
+      total_discount += item[:discount]
     end
 
     {
