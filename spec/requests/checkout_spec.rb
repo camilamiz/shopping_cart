@@ -3,6 +3,7 @@
 require 'active_support/testing/time_helpers'
 require 'rails_helper'
 require 'json-schema'
+require 'grpc_mock/rspec'
 
 RSpec.describe 'Checkout products', type: :request do
   include ActiveSupport::Testing::TimeHelpers
