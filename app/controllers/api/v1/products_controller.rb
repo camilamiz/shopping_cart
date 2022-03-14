@@ -5,7 +5,7 @@ require 'json-schema'
 class Api::V1::ProductsController < ApplicationController
   skip_before_action :verify_authenticity_token
 
-  BLACK_FRIDAY = '2022/03/12'
+  BLACK_FRIDAY = '2022/11/25'
 
   def checkout
     products = []

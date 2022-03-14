@@ -1,9 +1,12 @@
 #frozen_string_literal: true
 
+require 'active_support/testing/time_helpers'
 require 'rails_helper'
 require 'json-schema'
 
 RSpec.describe 'Checkout products', type: :request do
+  include ActiveSupport::Testing::TimeHelpers
+
   describe 'POST products#checkout' do
     let(:checkout_schema_file) { File.read("./spec/support/api/schemas/checkout.json") }
     let(:checkout_schema) { JSON.parse(checkout_schema_file) }
@@ -36,8 +39,13 @@ RSpec.describe 'Checkout products', type: :request do
         end
 
 
-        it 'returns a successful response and one extra product as a gift if today is a black friday' do
-          
+        it 'returns a successful response and one extra product as a gift if today is black friday' do
+          travel_to(Time.parse("2022-11-25")) do
+            post '/api/v1/checkout', params: params
+          end
+
+          expect(response.status).to eq 200
+          expect(JSON.parse(response.body)['products'].count).to eq 3
         end
       end
 
@@ -71,8 +79,13 @@ RSpec.describe 'Checkout products', type: :request do
       end
     end
 
-    it 'returns a sucessful response without applied discounts if the discount service is not available' do
+    context 'when discount api' do
+      it 'is available, it returns a successful response with available discounts applied' do
+      end
 
+      it 'is not available, it returns a sucessful response without applied discounts' do
+
+      end
     end
   end
 end
