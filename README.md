@@ -1,8 +1,8 @@
 # Shopping Cart
 
 ## Description :book:
-This app is the simulation of an e-commerce api that has a checkout endpoint, by which is sent a payload with a list of products and it returns a response with the purchase resume. It includes the following features:
-* Each product might have a discount which is returned by a grpc service
+This app is the simulation of an e-commerce api that has a checkout endpoint by which is sent a payload with a list of products and it returns a response with the purchase resume. It includes the following features:
+* Each product might have a discount which is returned by a gRPC service
 * When the discount service is not available, there aren't any discounts applied and the checkout endpoint keeps working
 * When it is Black Friday, it is added an extra product as a gift
 
@@ -16,7 +16,7 @@ This app was developed using:
 <pre>git clone git@github.com:camilamiz/shopping_cart.git</pre>
 2. Access the app folder
 <pre>cd shopping_cart</pre>
-3. For this step you should have [Docker](https://docs.docker.com/engine/install/) installed. In order to build the app image locally, run the command below, which will take a little while to finish.
+3. For this step you should have [Docker](https://docs.docker.com/engine/install/) installed. In order to build the app image locally, run the command below, which will take a little while to finish. This command will load the shopping cart application and the discount service.
 <pre>docker-compose up web discount</pre>
 4. If you want to kill it, type `ctrl+c` in your terminal window
 
