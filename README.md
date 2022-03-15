@@ -20,10 +20,9 @@ This app was developed using:
 <pre>docker-compose up web discount</pre>
 4. If you want to kill it, type `ctrl+c` in your terminal window
 
-
 ## Running the tests 📏
-With the application running, open a new terminal window, access the app folder and run
-<pre>docker run shopping_cart bundle exec rspec --format documentation</pre>
+Open a new terminal window, access the app folder and run
+<pre>bundle exec rspec --format documentation</pre>
 The `--format documentation` command can be removed for less detailed test results.
 
 ## How the API works ⚙️
@@ -35,22 +34,19 @@ This is an example of the parameters to be sent in the request's body:
 ```
 {
     "products": [
-				{
+	{
             "id": 1,
+            "quantity": 3
+        },
+        {
+            "id": 2,
             "quantity": 1
         }
     ]
 }
 ```
 If the request is sucessfull, it will return a status code of `200` and the created partner.
-![image](https://user-images.githubusercontent.com/39624192/132991411-d2eb43c9-9754-4510-995b-a2bcc176ddcf.png)
-
-If the request is successfull, the status code will be `200` and the response will bring the following fields:
-* The location is inside the coverage area of the closest partner (`inside_coverage_area` is `true` or `false`)
-* The distance of the closest partner to the location in km (`distance_in_km`)
-* The closest partner that was found in the list (`closest_partner`)
-
-![image](https://user-images.githubusercontent.com/39624192/132991450-324b9293-4ec0-47c9-9501-d6391db1975a.png)
+![image](![image](https://user-images.githubusercontent.com/39624192/158282903-16ad40fd-030c-436c-bca8-ff96352874e8.png))
 
 
 ------------------------
