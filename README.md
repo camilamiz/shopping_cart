@@ -46,7 +46,7 @@ This is an example of the parameters to be sent in the request's body:
 }
 ```
 If the request is sucessfull, it will return a status code of `200` and the created partner.
-![image](![image](https://user-images.githubusercontent.com/39624192/158282903-16ad40fd-030c-436c-bca8-ff96352874e8.png))
+![image](https://user-images.githubusercontent.com/39624192/158282903-16ad40fd-030c-436c-bca8-ff96352874e8.png)
 
 
 ------------------------
