@@ -7,6 +7,8 @@ This app is the simulation of an e-commerce api that has a checkout endpoint by 
 * When it is Black Friday, it is added an extra product as a gift
 * Gifts are not available for sale
 
+This application does not use a database. This file `products.json` is used as the result of an api that is consulted for products information.
+
 ## Technologies 💻
 This app was developed using:
 * Ruby version 3.0.2
