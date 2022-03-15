@@ -5,6 +5,7 @@ This app is the simulation of an e-commerce api that has a checkout endpoint by 
 * Each product might have a discount which is returned by a gRPC service
 * When the discount service is not available, there aren't any discounts applied and the checkout endpoint keeps working
 * When it is Black Friday, it is added an extra product as a gift
+* Gifts are not available for sale
 
 ## Technologies 💻
 This app was developed using:
@@ -47,6 +48,9 @@ This is an example of the parameters to be sent in the request's body:
 ```
 If the request is sucessfull, it will return a status code of `200` and the created partner.
 ![image](https://user-images.githubusercontent.com/39624192/158282903-16ad40fd-030c-436c-bca8-ff96352874e8.png)
+
+This is an example of a request that is sent with a product that should not be on sale:
+![image](https://user-images.githubusercontent.com/39624192/158485495-315e5473-b8f5-4d7d-a83b-0e1751daa2f2.png)
 
 
 ------------------------
