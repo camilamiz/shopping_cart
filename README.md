@@ -15,18 +15,28 @@ This app was developed using:
 * Rails version 6.1.4.7
 
 ## How to run this application 🐳
-1. Clone this app by running in your terminal</br>
+1. Clone this app by running in your terminal:</br>
 <pre>git clone git@github.com:camilamiz/shopping_cart.git</pre>
-2. Access the app folder
+2. Access the app folder:
 <pre>cd shopping_cart</pre>
-3. For this step you should have [Docker](https://docs.docker.com/engine/install/) installed. In order to build the app image locally, run the command below, which will take a little while to finish. This command will load the shopping cart application and the discount service.
-<pre>docker-compose up web discount</pre>
-4. If you want to kill it, type `ctrl+c` in your terminal window
+3. From this step forward, you should have [Docker](https://docs.docker.com/engine/install/) installed. In order to make the rails application and the discount service containers communicate, we will create a network that will be useb by both:
+<pre>docker network create shopping-cart-network</pre>
+4. We will now build the app image locally by running the command below, which will take a little while to finish.
+<pre>docker-compose build</pre>
+5. After the previous command finishes, run the command below to run the application:
+<pre>docker-compose up</pre>
+6. It will be necessary to get the ip address of the discount service to fill the .env file. So open another terminal window while the application is running and run the command below:
+<pre>docker network ls</pre>
+It will return something linke this:
+
+
+5. If you want to kill it, type `ctrl+c` in your terminal window
 
 ## Running the tests 📏
 Open a new terminal window, access the app folder and run
 <pre>bundle exec rspec --format documentation</pre>
-The `--format documentation` command can be removed for less detailed test results.
+The `--format documentation` command can be removed for less detailed test results.<br>
+<i>I was not able to stub the gRPC request in the tests, even using grpc_mock gem. If someone knows how to do this using, please let me know.</i>
 
 ## How the API works ⚙️
 Since for now we are running the app locally, we will use `http://locahost:3000` as the base url.
