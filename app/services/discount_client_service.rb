@@ -2,7 +2,8 @@ require './lib/discount_services_pb.rb'
 
 class DiscountClientService
   def initialize
-    @stub = Discount::Discount::Stub.new(ENV['DISCOUNT_SERVICE'], :this_channel_is_insecure)
+    env = Dotenv.load
+    @stub = Discount::Discount::Stub.new(env['DISCOUNT_SERVICE'], :this_channel_is_insecure)
   end
 
   def product_discount(id)

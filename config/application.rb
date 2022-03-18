@@ -17,6 +17,8 @@ require "rails/test_unit/railtie"
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
+Dotenv::Railtie.load
+
 module ShoppingCart
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
@@ -29,13 +31,5 @@ module ShoppingCart
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
-
-    config.before_configuration do
-      env_file = File.join(Rails.root, '.env')
-      File.open(env_file).read.split(/\n/).each do |string|
-        key_value = string.split('=')
-        ENV[key_value[0].to_s] = key_value[1]
-      end if File.exists?(env_file)
-    end
   end
 end
