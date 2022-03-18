@@ -10,9 +10,17 @@ services:
       - 3000:3000
     expose:
       - "3000"
+    image: web-image
+    networks:
+      - shopping-cart-network
   discount:
     image: "hashorg/hash-mock-discount-service"
     ports:
       - 50051:50051
     expose:
       - "50051"
+    networks:
+      - shopping-cart-network
+networks:
+  shopping-cart-network:
+    external: true
