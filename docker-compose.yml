@@ -13,6 +13,8 @@ services:
     image: web-image
     networks:
       - shopping-cart-network
+    env_file:
+      - .env
   discount:
     image: "hashorg/hash-mock-discount-service"
     ports:
