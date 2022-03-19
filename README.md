@@ -67,7 +67,7 @@ If the request is sucessfull, it will return a status code of `200` and the shop
 ![image](https://user-images.githubusercontent.com/39624192/158282903-16ad40fd-030c-436c-bca8-ff96352874e8.png)
 
 This is an example of a request that is sent with a product that should not be for sale:
-![image](https://user-images.githubusercontent.com/39624192/158485495-315e5473-b8f5-4d7d-a83b-0e1751daa2f2.png)
+![image](https://user-images.githubusercontent.com/39624192/159097548-67e6c4a7-b562-47f6-9b73-aa0dee50b9fa.png)
 
 
 ------------------------
