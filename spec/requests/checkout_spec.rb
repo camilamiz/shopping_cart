@@ -84,7 +84,7 @@ RSpec.describe 'Checkout products', type: :request do
 
           post '/api/v1/checkout', params: params_with_gift
 
-          expect(response.status).to eq 400
+          expect(response.status).to eq 422
         end
       end
     end
