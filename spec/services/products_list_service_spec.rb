@@ -1,6 +1,5 @@
 #frozen_string_literal: true
 
-require './lib/discount_services_pb.rb'
 require 'rails_helper'
 require 'grpc_mock/rspec'
 
