@@ -1,34 +1,13 @@
 #frozen_string_literal: true
 
-require 'json-schema'
-
 class Api::V1::ProductsController < ApplicationController
   skip_before_action :verify_authenticity_token
 
   BLACK_FRIDAY = '2022/11/25'
 
   def checkout
-    products = []
-
     if products_params.present?
-      products_params.map do |param|
-        id = param['id'].to_i
-        product = find_product(id)
-
-        if product.present?
-          quantity = param['quantity'].to_i
-          total_amount = product['amount'] * quantity
-
-          products << {
-            id: id,
-            quantity: quantity,
-            unit_amount: product['amount'].to_i,
-            total_amount: total_amount.to_i,
-            discount: (total_amount * discount(id)).to_i,
-            is_gift: product['is_gift']
-          }
-        end
-      end
+      products = ProductsListService.new(products_params).execute
 
       if validate_shopping_cart(products)
         checkout = purchase_resume(products)
@@ -72,22 +51,10 @@ class Api::V1::ProductsController < ApplicationController
     if gifts.count > 0
       render json: {
         message: "Products with id #{gifts.pluck(:id)} are not available for sale."
-      }, status: :bad_request
+      }, status: :unprocessable_entity
       return
     end
     return true
-  end
-
-  def discount(id)
-    begin
-      service = DiscountClientService.new
-      response = service.product_discount(id)
-      return response.percentage
-    rescue => exception
-      exception
-    end
-
-    return 0
   end
 
   def is_black_friday?
@@ -104,14 +71,6 @@ class Api::V1::ProductsController < ApplicationController
       discount: 0,
       is_gift: true
     }
-  end
-
-  def new_product
-    new_product ||= Product.new
-  end
-
-  def find_product(id)
-    new_product.find(id)
   end
 
   def products_params
